@@ -21,7 +21,7 @@ public class TestFollow : MonoBehaviour {
     {
         if (Vector3.Distance(transform.position, Player.transform.position) >= 2)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(Player.position.x, Player.position.y, transform.position.z), ref Vel, DelayFollow);
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(Player.position.x, Player.position.y - 1, transform.position.z), ref Vel, DelayFollow);
         }
         Vector3 Temp = transform.position;
         Temp.x = Mathf.Clamp(Temp.x, horzExtent, maxhorzExtent - horzExtent);

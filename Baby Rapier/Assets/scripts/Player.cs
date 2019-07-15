@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
     //Booleans
     public bool CanJump;
     bool attacking = false;
+    bool MLeft = false;
+    bool MRight = false;
 
     //Unity Componets
     Animator Anim;
@@ -41,47 +43,75 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        MovePlayer();
-        AttackHandler();
+        CheckPlayerInputs();
         if (Health <= 0)
             Death();
         
 	}
 
     //Movement tests 
-    void MovePlayer()
+    void CheckPlayerInputs()
     {
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || MLeft == true)
         {
-            GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
-            transform.Translate((Speed * Time.deltaTime), 0, 0);
+            MoveLeft();
         }
-        else if(Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow) || MRight == true)
         {
-            GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
-            transform.Translate((Speed * Time.deltaTime), 0, 0);
-
+            MoveRight();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (CanJump)
-            {
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, Jump));
-                CanJump = false;
-            }
+            PlayerJump();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            AttackHandler();
+        }
+        if(attacking)
+        {
+            AttackHandler();
         }
     }
 
-    void AttackHandler()
+    public void PlayerJump ()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (CanJump)
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, Jump));
+            CanJump = false;
+        }
+    }
+
+    public void MoveLeft()
+    {
+        GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
+        transform.Translate((Speed * Time.deltaTime), 0, 0);
+    }
+    public void SetMLeft(bool swap)
+    {
+        MLeft = swap;
+    }
+    public void SetMRight(bool swap)
+    {
+        MRight= swap;
+    }
+    public void MoveRight()
+    {
+        GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
+        transform.Translate((Speed * Time.deltaTime), 0, 0);
+    }
+
+    public void AttackHandler()
+    {
+        if (!attacking)
         {
             Anim.SetTrigger("attack");
             attacking = true;
             AttackTimer = AttackCool;
             sword.enabled = true;
         }
-        if(attacking)
+        else if(attacking)
         {
             if(AttackTimer > 0)
             {
@@ -95,6 +125,7 @@ public class Player : MonoBehaviour {
         }
         
     }
+
     //Jump only once test{must edit for double jump)
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -111,6 +142,11 @@ public class Player : MonoBehaviour {
             CanJump = true;
     }
 
+    private void OnCollisionStay2D(Collision2D coll)
+    {
+        if (coll.transform.tag == "Wall")
+            CanJump = true;
+    }
     public void Death()
     {
         Lives--;
