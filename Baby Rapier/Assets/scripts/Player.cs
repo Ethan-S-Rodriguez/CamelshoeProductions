@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
     public int Speed; //3 seems a decent speed must be tested more
     public int Jump; //Using add force 250 seems to be consistent
     public int Health, Lives;
+    public Vector3 RespawnPoint;
     int playerhealth;
 
     //Float values
@@ -43,11 +44,20 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        CheckPlayerInputs();
-        if (Health <= 0)
-            Death();
-        
-	}
+        if (!GameManager.Pause)
+        {
+            if(GetComponent<Rigidbody2D>().simulated == false)
+            GetComponent<Rigidbody2D>().simulated = true;
+
+            CheckPlayerInputs();
+            if (Health <= 0)
+                Death();
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
+        }
+    }
 
     //Movement tests 
     void CheckPlayerInputs()
@@ -144,7 +154,7 @@ public class Player : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D coll)
     {
-        if (coll.transform.tag == "Wall")
+        if (coll.transform.tag == "Floor")
             CanJump = true;
     }
     public void Death()
@@ -152,6 +162,7 @@ public class Player : MonoBehaviour {
         Lives--;
         LivesText.text = "Lives: " + Lives;
         Health = playerhealth;
+        HealthText.text = "Health: " + Health;
         // do death animation then invoke the respawn/restart function after a few seconds (like 2 - 5 with countdown)
         //Respawn.Invoke();
         transform.position = TestCheckPoint.ReachedPoint;

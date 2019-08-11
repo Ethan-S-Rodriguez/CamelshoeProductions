@@ -10,6 +10,7 @@ public class TestCheckPoint : MonoBehaviour {
         if(coll.tag == "Player")
         {
             ReachedPoint = transform.position;
+            GetComponent<Collider2D>().enabled = false;
         }
     }
 }

@@ -26,11 +26,14 @@ public class TestEnemyScript : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        if(!hasDied)
-        MoveEnemy();
-	}
+        if (!GameManager.Pause)
+        {
+            if (!hasDied)
+                MoveEnemy();
+        }
+    }
 
     public void MoveEnemy()
     {
