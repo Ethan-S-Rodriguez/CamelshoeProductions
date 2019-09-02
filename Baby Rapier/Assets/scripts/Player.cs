@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
     public Collider2D sword;
     public Text HealthText;
     public Text LivesText;
+    public Slider Joystick;
 
     //events
     public delegate void TestDelegate();
@@ -62,11 +63,11 @@ public class Player : MonoBehaviour {
     //Movement tests 
     void CheckPlayerInputs()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || MLeft == true)
+        if (Input.GetKey(KeyCode.LeftArrow) || Joystick.value <0)
         {
             MoveLeft();
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || MRight == true)
+        else if (Input.GetKey(KeyCode.RightArrow) || Joystick.value > 0)
         {
             MoveRight();
         }
