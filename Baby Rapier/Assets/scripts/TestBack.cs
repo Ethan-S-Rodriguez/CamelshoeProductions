@@ -5,22 +5,28 @@ using UnityEngine.UI;
 
 public class TestBack : MonoBehaviour
 {
-    public Slider Volume;
-    Button Back;
+    public Slider MusicVolume;
+    public Slider SFXVolume;
     public Button StartScene;
     public Text Menu;
     public Button Options;
+    public AudioClip Sound;
+    public AudioSource Source;
+    Button Back;
+
     private void Start()
     {
         Back = GetComponent<Button>();
     }
-    public void OpenOptions()
+
+    public void CloseOptions()
     {
+        Source.PlayOneShot(Sound,PlayerPrefs.GetFloat("SFX Volume"));
         Options.gameObject.SetActive(true);
         StartScene.gameObject.SetActive(true);
         Menu.gameObject.SetActive(true);
+        SFXVolume.gameObject.SetActive(false);
+        MusicVolume.gameObject.SetActive(false);
         Back.gameObject.SetActive(false);
-        Volume.gameObject.SetActive(false);
-
     }
 }

@@ -10,8 +10,12 @@ public class GameManager : MonoBehaviour {
     public Text screen;
     public Button Resume;
     public Button MainMenu;
-    public Slider Volume;
+    public Slider MusicVolume;
+    public Slider SFXVolume;
     public GameObject PausePanel;
+    public AudioClip SoundP;
+    public AudioClip SoundR;
+    public AudioSource Source;
 
     // Use this for initialization
     void Start()
@@ -20,7 +24,8 @@ public class GameManager : MonoBehaviour {
         screen.enabled = false;
         Resume.gameObject.SetActive(false);
         MainMenu.gameObject.SetActive(false);
-        Volume.gameObject.SetActive(false);
+        MusicVolume.gameObject.SetActive(false);
+        SFXVolume.gameObject.SetActive(false);
         PausePanel.gameObject.SetActive(false);
     }
 
@@ -35,16 +40,22 @@ public class GameManager : MonoBehaviour {
 
     public void PauseGame()
     {
+        if (!Pause)
+            Source.PlayOneShot(SoundP);
+        else
+            Source.PlayOneShot(SoundR);
         Pause = !Pause;
         screen.enabled = Pause;
         Resume.gameObject.SetActive(Pause);
         MainMenu.gameObject.SetActive(Pause);
         PausePanel.gameObject.SetActive(Pause);
-        Volume.gameObject.SetActive(Pause);
+        MusicVolume.gameObject.SetActive(Pause);
+        SFXVolume.gameObject.SetActive(Pause);
     }
 
     public void TestPlay()
     {
+        Source.PlayOneShot(SoundP);
         if (SceneManager.GetActiveScene().name == "Main Menu")
             SceneManager.LoadScene("Testbuild");
         else

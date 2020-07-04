@@ -9,30 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1171337530781732}
+  m_RootGameObject: {fileID: 1694729393105690}
   m_IsPrefabAsset: 1
---- !u!1 &1171337530781732
+--- !u!1 &1694729393105690
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4319259726323722}
-  - component: {fileID: 82071253647130582}
+  - component: {fileID: 4899150893466338}
+  - component: {fileID: 82435767979482904}
+  - component: {fileID: 114781010848365182}
   m_Layer: 0
-  m_Name: Background Music
+  m_Name: Music Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4319259726323722
+--- !u!4 &4899150893466338
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1171337530781732}
+  m_GameObject: {fileID: 1694729393105690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 158.18056, y: 399.84213, z: 5.375}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +41,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82071253647130582
+--- !u!82 &82435767979482904
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1171337530781732}
+  m_GameObject: {fileID: 1694729393105690}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -135,3 +136,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114781010848365182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694729393105690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19c6a38a30366ec45be1a0e9f3f4fd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

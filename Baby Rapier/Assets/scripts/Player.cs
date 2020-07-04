@@ -28,6 +28,10 @@ public class Player : MonoBehaviour {
     public Text HealthText;
     public Text LivesText;
     public Slider Joystick;
+    public AudioClip JumpSound;
+    public AudioClip AttackSound;
+    public AudioSource Source;
+
 
     //events
     public delegate void TestDelegate();
@@ -89,6 +93,7 @@ public class Player : MonoBehaviour {
     {
         if (CanJump)
         {
+            Source.PlayOneShot(JumpSound);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, Jump));
             CanJump = false;
         }
@@ -117,6 +122,7 @@ public class Player : MonoBehaviour {
     {
         if (!attacking)
         {
+            Source.PlayOneShot(AttackSound, 0.5f);
             Anim.SetTrigger("attack");
             attacking = true;
             AttackTimer = AttackCool;

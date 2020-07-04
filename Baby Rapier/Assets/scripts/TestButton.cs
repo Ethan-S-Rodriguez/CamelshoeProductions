@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class TestButton : MonoBehaviour {
 
+    public AudioClip Sound;
+    public AudioSource Source;
 	// Use this for initialization
 	void Start () {
 		
@@ -17,6 +19,7 @@ public class TestButton : MonoBehaviour {
 	}
     public void TestPlay()
     {
+        Source.PlayOneShot(Sound);
         SceneManager.LoadScene("Testbuild");
     }
 }

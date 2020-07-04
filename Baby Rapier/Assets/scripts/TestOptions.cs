@@ -3,25 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class TestOptions : MonoBehaviour {
-    public Slider Volume;
+    public Slider MusicVolume;
+    public Slider SFXVolume;
     public Button Back;
     public Button StartScene;
     public Text Menu;
+    public AudioClip Sound;
+    public AudioSource Source;
     Button Options;
+
     private void Start()
     {
         Options = GetComponent<Button>();
-        Volume.gameObject.SetActive(false);
+        MusicVolume.gameObject.SetActive(true);
+        SFXVolume.gameObject.SetActive(true);
         Back.gameObject.SetActive(false);
     }
+    private void Update()
+    {
+        MusicVolume.gameObject.SetActive(false);
+        SFXVolume.gameObject.SetActive(false);
+    }
+
     public void OpenOptions()
     {
-        Options.gameObject.SetActive(false);
+        Source.PlayOneShot(Sound, PlayerPrefs.GetFloat("SFX Volume"));
+
         StartScene.gameObject.SetActive(false);
         Menu.gameObject.SetActive(false);
         Back.gameObject.SetActive(true);
-        Volume.gameObject.SetActive(true);
-
+        MusicVolume.gameObject.SetActive(true);
+        SFXVolume.gameObject.SetActive(true);
+        Options.gameObject.SetActive(false);
     }
 }
