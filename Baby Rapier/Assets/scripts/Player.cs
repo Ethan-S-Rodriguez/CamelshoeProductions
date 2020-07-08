@@ -9,12 +9,12 @@ public class Player : MonoBehaviour {
     public int Speed; //3 seems a decent speed must be tested more
     public int Jump; //Using add force 250 seems to be consistent
     public int Health, Lives;
-    public Vector3 RespawnPoint;
+    Vector3 RespawnPoint;
     int playerhealth;
 
     //Float values
     float AttackTimer= 0;
-    float AttackCool = 0.3f;
+    float AttackCool = 0.5f;
 
     //Booleans
     public bool CanJump;
@@ -28,6 +28,9 @@ public class Player : MonoBehaviour {
     public Text HealthText;
     public Text LivesText;
     public Slider Joystick;
+
+    public AudioClip HurtSound;
+    public AudioClip DeathSound;
     public AudioClip JumpSound;
     public AudioClip AttackSound;
     public AudioSource Source;
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour {
         playerhealth = Health;
         HealthText.text = "Health: " + Health;
         LivesText.text = "Lives: " + Lives;
+        RespawnPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -151,6 +155,7 @@ public class Player : MonoBehaviour {
 
         if (coll.transform.tag == "Enemy")
         {
+            Source.PlayOneShot(HurtSound);
             Health--;
             HealthText.text = "Health: " + Health;
 
@@ -163,15 +168,20 @@ public class Player : MonoBehaviour {
     {
         if (coll.transform.tag == "Floor")
             CanJump = true;
+
     }
     public void Death()
     {
+        Source.PlayOneShot(DeathSound);
         Lives--;
         LivesText.text = "Lives: " + Lives;
         Health = playerhealth;
         HealthText.text = "Health: " + Health;
         // do death animation then invoke the respawn/restart function after a few seconds (like 2 - 5 with countdown)
         //Respawn.Invoke();
-        transform.position = TestCheckPoint.ReachedPoint;
+        if (TestCheckPoint.ReachedPoint != Vector3.zero)
+            transform.position = TestCheckPoint.ReachedPoint;
+        else
+            transform.position = RespawnPoint;
     }
 }

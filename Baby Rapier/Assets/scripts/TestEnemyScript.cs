@@ -10,6 +10,9 @@ public class TestEnemyScript : MonoBehaviour {
     bool FacingLeft;
     bool hasDied;
 
+    public AudioClip DeathSound;
+    public AudioSource Source;
+
     Rigidbody2D RB;
     Rigidbody2D Player;
     Animator Anim;
@@ -89,6 +92,7 @@ public class TestEnemyScript : MonoBehaviour {
         if(coll.tag == "Sword")
         {
             //Die
+            Source.PlayOneShot(DeathSound);
             Anim.SetTrigger("Die");
             GetComponent<BoxCollider2D>().enabled = false;
             RB.simulated = false;
