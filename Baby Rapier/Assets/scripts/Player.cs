@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour {
     public AudioClip JumpSound;
     public AudioClip AttackSound;
     public AudioSource Source;
+    public TestSaving SaveGame;
 
 
     //events
@@ -44,6 +46,9 @@ public class Player : MonoBehaviour {
     void Awake () {
         Anim = GetComponent<Animator>();
         sword.enabled = false;
+        SaveGame.Awake();
+        Health = Convert.ToInt32(SaveGame.Health);
+        Lives = Convert.ToInt32(SaveGame.Lives);
         playerhealth = Health;
         HealthText.text = "Health: " + Health;
         LivesText.text = "Lives: " + Lives;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour {
     public AudioClip SoundP;
     public AudioClip SoundR;
     public AudioSource Source;
+    public TestSaving SaveGame;
+    public Player player;
 
     // Use this for initialization
     void Start()
@@ -27,6 +30,8 @@ public class GameManager : MonoBehaviour {
         MusicVolume.gameObject.SetActive(false);
         SFXVolume.gameObject.SetActive(false);
         PausePanel.gameObject.SetActive(false);
+        player.Health = Convert.ToInt32(SaveGame.Health);
+        player.Lives = Convert.ToInt32(SaveGame.Lives);
     }
 
     // Update is called once per frame
@@ -53,12 +58,10 @@ public class GameManager : MonoBehaviour {
         SFXVolume.gameObject.SetActive(Pause);
     }
 
-    public void TestPlay()
+    public void TestMainMenu()
     {
         Source.PlayOneShot(SoundP);
-        if (SceneManager.GetActiveScene().name == "Main Menu")
-            SceneManager.LoadScene("Testbuild");
-        else
-            SceneManager.LoadScene("Main Menu");
+        SaveGame.Save(player.Health.ToString(), player.Lives.ToString(),SceneManager.GetActiveScene().name,"1");
+        SceneManager.LoadScene("Main Menu");
     }
 }
