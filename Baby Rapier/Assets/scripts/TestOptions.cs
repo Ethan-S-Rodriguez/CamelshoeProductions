@@ -14,11 +14,12 @@ public class TestOptions : MonoBehaviour {
 
     private void Start()
     {
-        MusicVolume.gameObject.SetActive(true);
-        SFXVolume.gameObject.SetActive(true);
-        Back.gameObject.SetActive(false);
-        MusicVolume.gameObject.SetActive(false);
-        SFXVolume.gameObject.SetActive(false);
+        if (this.gameObject.name == "TestOptions")
+        {
+            Back.gameObject.SetActive(false);
+            MusicVolume.gameObject.SetActive(false);
+            SFXVolume.gameObject.SetActive(false);
+        }
     }
     private void Update()
     {
@@ -35,6 +36,7 @@ public class TestOptions : MonoBehaviour {
         MusicVolume.gameObject.SetActive(true);
         SFXVolume.gameObject.SetActive(true);
         Options.gameObject.SetActive(false);
+
     }
     public void CloseOptions()
     {
