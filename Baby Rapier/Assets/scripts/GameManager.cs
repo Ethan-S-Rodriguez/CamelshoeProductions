@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
         {
             PauseGame();
         }
+        if (player.Lives <= 0)
+            TestMMNoSave();
     }
 
     public void PauseGame()
@@ -62,6 +64,11 @@ public class GameManager : MonoBehaviour {
     {
         Source.PlayOneShot(SoundP);
         SaveGame.Save(player.Health.ToString(), player.Lives.ToString(),SceneManager.GetActiveScene().name,"1");
+        SceneManager.LoadScene("Main Menu");
+    }
+    public void TestMMNoSave()
+    {
+        Source.PlayOneShot(SoundP);
         SceneManager.LoadScene("Main Menu");
     }
 }

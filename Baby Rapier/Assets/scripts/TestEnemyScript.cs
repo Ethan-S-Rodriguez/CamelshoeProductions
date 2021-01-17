@@ -6,8 +6,15 @@ public class TestEnemyScript : MonoBehaviour {
 
     public int LeftWaypoint, RightWaypoint;
     public int Speed;
+    public int Health;
+    public int KnockbackX;
+    public int KnockbackY;
+    public float StunTime;
+    float StunTimer;
+    float StunCheck;
 
     bool FacingLeft;
+    bool Stunned = false;
     bool hasDied;
 
     public AudioClip DeathSound;
@@ -35,54 +42,63 @@ public class TestEnemyScript : MonoBehaviour {
         {
             if (!hasDied)
                 MoveEnemy();
+            if (Stunned)
+            {
+                StunCheck = Time.time;
+                if ((StunCheck - StunTimer) >= StunTime)
+                    Stunned = false;
+            }
         }
     }
 
     public void MoveEnemy()
     {
-        if (Vector3.Distance(RB.position, Player.position) <= 3)
+        if (!Stunned)
         {
-            //chase player
-            if (RB.position.x > Player.position.x)
+            if (Vector3.Distance(RB.position, Player.position) <= 3)
+            {
+                //chase player
+                if (RB.position.x > Player.position.x)
                 {
                     RB.transform.Translate(Speed * Time.deltaTime, 0, 0);//left
                     FacingLeft = true;
                 }
 
-            else if (RB.position.x < Player.position.x)
+                else if (RB.position.x < Player.position.x)
                 {
                     RB.transform.Translate(Speed * Time.deltaTime, 0, 0);//right
                     FacingLeft = false;
                 }
-        }
-
-        else
-        {
-            if (RB.position.x > LeftWaypoint && FacingLeft)
-            {
-                RB.transform.Translate(Speed * Time.deltaTime, 0, 0);
-            }
-
-            else if (RB.position.x < RightWaypoint && !FacingLeft)
-            {
-                RB.transform.Translate(Speed * Time.deltaTime, 0, 0);
-
             }
 
             else
             {
-                FacingLeft = !FacingLeft;
+                if (RB.position.x > LeftWaypoint && FacingLeft)
+                {
+                    RB.transform.Translate(Speed * Time.deltaTime, 0, 0);
+                }
 
-                
+                else if (RB.position.x < RightWaypoint && !FacingLeft)
+                {
+                    RB.transform.Translate(Speed * Time.deltaTime, 0, 0);
+
+                }
+
+                else
+                {
+                    FacingLeft = !FacingLeft;
+
+
+                }
             }
-        }
-        if (FacingLeft)
-        {
-            GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
-        }
-        else
-        {
-            GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
+            if (FacingLeft)
+            {
+                GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
+            }
+            else
+            {
+                GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
+            }
         }
     }
 
@@ -91,14 +107,28 @@ public class TestEnemyScript : MonoBehaviour {
     {
         if(coll.tag == "Sword")
         {
-            //Die
-            Source.PlayOneShot(DeathSound);
-            Anim.SetTrigger("Die");
-            GetComponent<BoxCollider2D>().enabled = false;
-            RB.simulated = false;
-            hasDied = true;
+            Health--;
+
+            int PlayerDir = 1;
+            if (transform.position.x < coll.transform.position.x)
+                PlayerDir = -1;
+            GetComponent<Rigidbody2D>().AddForce(new Vector2((PlayerDir * KnockbackX), KnockbackY));
+            Stunned = true;
+            StunTimer = Time.time;
+
+            if (Health <= 0)
+                DeathAni();
         }
     }
+    public void DeathAni()
+    {
+        Source.PlayOneShot(DeathSound);
+        Anim.SetTrigger("Die");
+        GetComponent<BoxCollider2D>().enabled = false;
+        RB.simulated = false;
+        hasDied = true;
+    }
+
     public void Death()
     {
         Destroy(gameObject);

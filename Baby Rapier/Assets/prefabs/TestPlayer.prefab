@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1293532580740854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.093, y: -1.219, z: 0.115957856}
+  m_LocalPosition: {x: -4.093, y: 1.5, z: 0.115957856}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4443473881796242}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.33, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -142,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8126822, y: 1.9980118}
+  m_Size: {x: 1.21, y: 1.9980118}
   m_EdgeRadius: 0
 --- !u!95 &95181862531620284
 Animator:
@@ -173,14 +173,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b388e316b56d542a95d7f88c63d8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 4
+  Speed: 6
   Jump: 250
+  KnockbackX: 200
+  KnockbackY: 75
+  StunTime: 0.5
   Health: 5
   Lives: 10
   CanJump: 0
   sword: {fileID: 61415246713356442}
   HealthText: {fileID: 0}
   LivesText: {fileID: 0}
+  Joystick: {fileID: 0}
+  HurtSound: {fileID: 8300000, guid: b50a65afd3a2a7e4d8951495f05ee518, type: 3}
+  DeathSound: {fileID: 8300000, guid: cc14894ce7dd0884199d531a07046d84, type: 3}
+  JumpSound: {fileID: 8300000, guid: b5ae61eeb76ee1f46b9d936eea6620dd, type: 3}
+  AttackSound: {fileID: 8300000, guid: 4e72f849de2540c4fb3335d8d99e0c39, type: 3}
+  Source: {fileID: 0}
+  SaveGame: {fileID: 0}
 --- !u!212 &212291920658380672
 SpriteRenderer:
   m_ObjectHideFlags: 1

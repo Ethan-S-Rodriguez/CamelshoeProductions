@@ -121,6 +121,10 @@ MonoBehaviour:
   LeftWaypoint: 9
   RightWaypoint: 15
   Speed: 2
+  Health: 2
+  KnockbackX: 100
+  KnockbackY: 75
+  StunTime: 0.5
   DeathSound: {fileID: 8300000, guid: b4fda0df883784142a3886e93cb12304, type: 3}
   Source: {fileID: 0}
 --- !u!212 &212392641422879474

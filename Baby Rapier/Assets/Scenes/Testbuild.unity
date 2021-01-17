@@ -257,16 +257,6 @@ Prefab:
       propertyPath: LivesText
       value: 
       objectReference: {fileID: 951030624}
-    - target: {fileID: 61754652590931828, guid: e1ba76a953a0602489caf64ce161b978,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 61754652590931828, guid: e1ba76a953a0602489caf64ce161b978,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: -0.33
-      objectReference: {fileID: 0}
     - target: {fileID: 114860487284473302, guid: e1ba76a953a0602489caf64ce161b978,
         type: 2}
       propertyPath: Joystick
@@ -277,26 +267,6 @@ Prefab:
       propertyPath: Source
       value: 
       objectReference: {fileID: 18131848}
-    - target: {fileID: 114860487284473302, guid: e1ba76a953a0602489caf64ce161b978,
-        type: 2}
-      propertyPath: JumpSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b5ae61eeb76ee1f46b9d936eea6620dd, type: 3}
-    - target: {fileID: 114860487284473302, guid: e1ba76a953a0602489caf64ce161b978,
-        type: 2}
-      propertyPath: AttackSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4e72f849de2540c4fb3335d8d99e0c39, type: 3}
-    - target: {fileID: 114860487284473302, guid: e1ba76a953a0602489caf64ce161b978,
-        type: 2}
-      propertyPath: HurtSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b50a65afd3a2a7e4d8951495f05ee518, type: 3}
-    - target: {fileID: 114860487284473302, guid: e1ba76a953a0602489caf64ce161b978,
-        type: 2}
-      propertyPath: DeathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: cc14894ce7dd0884199d531a07046d84, type: 3}
     - target: {fileID: 114860487284473302, guid: e1ba76a953a0602489caf64ce161b978,
         type: 2}
       propertyPath: SaveGame
@@ -1081,6 +1051,11 @@ Prefab:
         type: 2}
       propertyPath: RightWaypoint
       value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 114133891022185456, guid: c175d2066ca596648a540f33ab41acf4,
+        type: 2}
+      propertyPath: KnockbackX
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c175d2066ca596648a540f33ab41acf4, type: 2}

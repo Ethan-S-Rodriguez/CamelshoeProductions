@@ -9,6 +9,11 @@ public class Player : MonoBehaviour {
     //Int values
     public int Speed; //3 seems a decent speed must be tested more
     public int Jump; //Using add force 250 seems to be consistent
+    public int KnockbackX; 
+    public int KnockbackY;
+    public float StunTime;
+    float StunTimer;
+    float StunCheck;
     public int Health, Lives;
     Vector3 RespawnPoint;
     int playerhealth;
@@ -22,6 +27,7 @@ public class Player : MonoBehaviour {
     bool attacking = false;
     bool MLeft = false;
     bool MRight = false;
+    bool Stunned = false;
 
     //Unity Componets
     Animator Anim;
@@ -50,6 +56,7 @@ public class Player : MonoBehaviour {
         Health = Convert.ToInt32(SaveGame.Health);
         Lives = Convert.ToInt32(SaveGame.Lives);
         playerhealth = Health;
+
         HealthText.text = "Health: " + Health;
         LivesText.text = "Lives: " + Lives;
         RespawnPoint = transform.position;
@@ -60,12 +67,23 @@ public class Player : MonoBehaviour {
     {
         if (!GameManager.Pause)
         {
+            
             if(GetComponent<Rigidbody2D>().simulated == false)
             GetComponent<Rigidbody2D>().simulated = true;
 
             CheckPlayerInputs();
             if (Health <= 0)
                 Death();
+            if (Stunned)
+            {
+                StunCheck = Time.time;
+                if ((StunCheck - StunTimer) >= StunTime)
+                {
+                    Stunned = false;
+                    GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                }
+            }
+
         }
         else
         {
@@ -110,8 +128,11 @@ public class Player : MonoBehaviour {
 
     public void MoveLeft()
     {
-        GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
-        transform.Translate((Speed * Time.deltaTime), 0, 0);
+        if (!Stunned)
+        {
+            GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
+            transform.Translate((Speed * Time.deltaTime), 0, 0);
+        }
     }
     public void SetMLeft(bool swap)
     {
@@ -123,8 +144,11 @@ public class Player : MonoBehaviour {
     }
     public void MoveRight()
     {
-        GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
-        transform.Translate((Speed * Time.deltaTime), 0, 0);
+        if (!Stunned)
+        {
+            GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
+            transform.Translate((Speed * Time.deltaTime), 0, 0);
+        }
     }
 
     public void AttackHandler()
@@ -163,7 +187,14 @@ public class Player : MonoBehaviour {
             Source.PlayOneShot(HurtSound);
             Health--;
             HealthText.text = "Health: " + Health;
+            int EnemyDir = 1;
 
+            if( transform.position.x < coll.transform.position.x)
+                EnemyDir = -1;
+            
+            GetComponent<Rigidbody2D>().AddForce(new Vector2((EnemyDir * KnockbackX), KnockbackY));
+            Stunned = true;
+            StunTimer = Time.time;
         }
         if (coll.transform.tag == "Wall")
             CanJump = true;
