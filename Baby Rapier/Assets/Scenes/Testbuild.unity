@@ -272,6 +272,10 @@ Prefab:
       propertyPath: SaveGame
       value: 
       objectReference: {fileID: 398386411}
+    - target: {fileID: 4408278855628058, guid: e1ba76a953a0602489caf64ce161b978, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1ba76a953a0602489caf64ce161b978, type: 2}
   m_IsPrefabAsset: 0
@@ -874,11 +878,21 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114545408161524996, guid: 57a135ca54401c646b715c31f7cfa171,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1771882273}
     - target: {fileID: 223061648128154746, guid: 57a135ca54401c646b715c31f7cfa171,
         type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1900967443}
+    - target: {fileID: 114461814652544072, guid: 57a135ca54401c646b715c31f7cfa171,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1413954720}
     - target: {fileID: 114335252639981108, guid: 57a135ca54401c646b715c31f7cfa171,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -889,16 +903,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1413954720}
-    - target: {fileID: 114461814652544072, guid: 57a135ca54401c646b715c31f7cfa171,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1413954720}
-    - target: {fileID: 114545408161524996, guid: 57a135ca54401c646b715c31f7cfa171,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1771882273}
     - target: {fileID: 114895561667278908, guid: 57a135ca54401c646b715c31f7cfa171,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1270,6 +1274,22 @@ MonoBehaviour:
   horzExtent: -10000
   maxvertExtent: 10000
   maxhorzExtent: 10000
+--- !u!1 &1942401032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1995347579644728, guid: e1ba76a953a0602489caf64ce161b978,
+    type: 2}
+  m_PrefabInternal: {fileID: 173860610}
+--- !u!114 &1942401035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942401032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ea437827854c548815e9a7ad7f0265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1976009548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4393012696398614, guid: c175d2066ca596648a540f33ab41acf4,

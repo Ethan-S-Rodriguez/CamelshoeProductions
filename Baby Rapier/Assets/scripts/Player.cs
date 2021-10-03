@@ -14,9 +14,8 @@ public class Player : MonoBehaviour {
     public float StunTime;
     float StunTimer;
     float StunCheck;
-    public int Health, Lives;
+    public int MaxHealth, Health, Lives;
     Vector3 RespawnPoint;
-    int playerhealth;
 
     //Float values
     float AttackTimer= 0;
@@ -55,11 +54,12 @@ public class Player : MonoBehaviour {
         SaveGame.Awake();
         Health = Convert.ToInt32(SaveGame.Health);
         Lives = Convert.ToInt32(SaveGame.Lives);
-        playerhealth = Health;
 
         HealthText.text = "Health: " + Health;
         LivesText.text = "Lives: " + Lives;
         RespawnPoint = transform.position;
+        MRight = true;
+        MLeft = false;
     }
 
     // Update is called once per frame
@@ -121,7 +121,9 @@ public class Player : MonoBehaviour {
         if (CanJump)
         {
             Source.PlayOneShot(JumpSound);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2( 0, 0));
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, Jump));
+            Anim.ResetTrigger("Landed");
             CanJump = false;
         }
     }
@@ -130,8 +132,13 @@ public class Player : MonoBehaviour {
     {
         if (!Stunned)
         {
-            GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, 0);
+            if (!attacking)
+                GetComponent<Transform>().localScale = new Vector3(-0.5f, 0.5f, 1);
+            GetComponent<Transform>().rotation = new Quaternion(0,180,0,0);
+
             transform.Translate((Speed * Time.deltaTime), 0, 0);
+            MLeft = true;
+            MRight = false;
         }
     }
     public void SetMLeft(bool swap)
@@ -146,8 +153,12 @@ public class Player : MonoBehaviour {
     {
         if (!Stunned)
         {
+            if (!attacking)
+                GetComponent<Transform>().localScale = new Vector3(0.5f, 0.5f, 1);
             GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
             transform.Translate((Speed * Time.deltaTime), 0, 0);
+            MRight = true;
+            MLeft = false;
         }
     }
 
@@ -155,19 +166,31 @@ public class Player : MonoBehaviour {
     {
         if (!attacking)
         {
+            if (CanJump)
+            {
+                Anim.SetTrigger("attack");
+            }
+            else if (!CanJump && MRight == true)
+            {
+                Anim.SetTrigger("jattack R");
+            }
+            else if (!CanJump && MLeft == true)
+            {
+                Anim.SetTrigger("jattack L");
+            }
+
             Source.PlayOneShot(AttackSound, 0.5f);
-            Anim.SetTrigger("attack");
             attacking = true;
             AttackTimer = AttackCool;
             sword.enabled = true;
         }
         else if(attacking)
         {
-            if(AttackTimer > 0)
+            if(AttackTimer > 0 )
             {
                 AttackTimer -= Time.deltaTime;
             }
-            else
+            else if(CanJump && AttackTimer <=0)
             {
                 attacking = false;
                 sword.enabled = false;
@@ -180,7 +203,10 @@ public class Player : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D coll)
     {
         if(coll.transform.tag == "Floor")
+        { 
             CanJump = true;
+            Anim.SetTrigger("Landed");
+        }
 
         if (coll.transform.tag == "Enemy")
         {
@@ -197,22 +223,35 @@ public class Player : MonoBehaviour {
             StunTimer = Time.time;
         }
         if (coll.transform.tag == "Wall")
+        {
             CanJump = true;
+            Anim.SetTrigger("Landed");
+        }
     }
 
     private void OnCollisionStay2D(Collision2D coll)
     {
-        if (coll.transform.tag == "Floor")
+        //if (coll.transform.tag == "Floor")
             CanJump = true;
 
     }
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (!CanJump && coll.transform.tag == "Enemy")
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, Jump*2));
+
+        }
+
+    }
+
     public void Death()
     {
         Source.PlayOneShot(DeathSound);
         Lives--;
         LivesText.text = "Lives: " + Lives;
-        Health = playerhealth;
-        HealthText.text = "Health: " + Health;
+        Health = MaxHealth;
+        HealthText.text = "Health: " + MaxHealth;
         // do death animation then invoke the respawn/restart function after a few seconds (like 2 - 5 with countdown)
         //Respawn.Invoke();
         if (TestCheckPoint.ReachedPoint != Vector3.zero)

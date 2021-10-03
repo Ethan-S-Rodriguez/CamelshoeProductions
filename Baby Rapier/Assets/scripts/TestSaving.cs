@@ -16,7 +16,7 @@ public class TestSaving : MonoBehaviour {
 
     public void Awake()
     {
-        string filepath = "..\\Baby Rapier\\Assets\\scripts\\SaveFile.txt";
+        string filepath = Application.persistentDataPath + "/SaveFile.txt";
         if (File.Exists(filepath))
         {
             SaveFile = filepath;

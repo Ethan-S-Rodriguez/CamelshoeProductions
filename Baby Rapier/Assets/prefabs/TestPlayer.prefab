@@ -178,6 +178,7 @@ MonoBehaviour:
   KnockbackX: 200
   KnockbackY: 75
   StunTime: 0.5
+  MaxHealth: 5
   Health: 5
   Lives: 10
   CanJump: 0

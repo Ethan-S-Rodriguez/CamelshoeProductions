@@ -126,7 +126,7 @@ MonoBehaviour:
   KnockbackY: 75
   StunTime: 0.5
   DeathSound: {fileID: 8300000, guid: b4fda0df883784142a3886e93cb12304, type: 3}
-  Source: {fileID: 0}
+  Source: {fileID: 82179942186758688, guid: 4e3c6efc46476f549917f8600e79f808, type: 2}
 --- !u!212 &212392641422879474
 SpriteRenderer:
   m_ObjectHideFlags: 1
